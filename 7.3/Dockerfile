@@ -11,13 +11,13 @@ RUN set -xe; \
 RUN set -xe; \
 	apt-get update >/dev/null; \
 	apt-get -y --no-install-recommends install >/dev/null \
-		apt-transport-https \
-		# ca-certificates and curl come from upstream
-		#ca-certificates \
-		#curl \
-		gnupg \
-		locales \
-		wget \
+	apt-transport-https \
+	# ca-certificates and curl come from upstream
+	#ca-certificates \
+	#curl \
+	gnupg \
+	locales \
+	wget \
 	;\
 	# Cleanup
 	apt-get clean; rm -rf /var/lib/apt/lists/*
@@ -48,33 +48,33 @@ RUN set -xe; \
 	mkdir -p /usr/share/man/man1 /usr/share/man/man7; \
 	apt-get update >/dev/null; \
 	apt-get -y --no-install-recommends install >/dev/null \
-		cron \
-		dnsutils \
-		git \
-		git-lfs \
-		ghostscript \
-		# html2text binary - used for self-testing (php-fpm)
-		html2text \
-		imagemagick \
-		iputils-ping \
-		less \
-		# cgi-fcgi binary - used for self-testing (php-fpm)
-		libfcgi-bin \
-		mc \
-		msmtp \
-		mysql-client \
-		nano \
-		openssh-client \
-		openssh-server \
-		postgresql-client \
-		procps \
-		pv \
-		rsync \
-		sudo \
-		supervisor \
-		unzip \
-		webp \
-		zip \
+	cron \
+	dnsutils \
+	git \
+	git-lfs \
+	ghostscript \
+	# html2text binary - used for self-testing (php-fpm)
+	html2text \
+	imagemagick \
+	iputils-ping \
+	less \
+	# cgi-fcgi binary - used for self-testing (php-fpm)
+	libfcgi-bin \
+	mc \
+	msmtp \
+	mysql-client \
+	nano \
+	openssh-client \
+	openssh-server \
+	postgresql-client \
+	procps \
+	pv \
+	rsync \
+	sudo \
+	supervisor \
+	unzip \
+	webp \
+	zip \
 	;\
 	# Cleanup
 	apt-get clean; rm -rf /var/lib/apt/lists/*
@@ -116,109 +116,109 @@ RUN set -xe; \
 	# Note: essential build tools (g++, gcc, make, etc) are included upstream as persistent packages.
 	# See https://github.com/docker-library/php/blob/4af0a8734a48ab84ee96de513aabc45418b63dc5/7.2/stretch/fpm/Dockerfile#L18-L37
 	buildDeps=" \
-		libc-client2007e-dev \
-		libfreetype6-dev \
-		libgpgme11-dev \
-		libicu-dev \
-		libjpeg62-turbo-dev \
-		libkrb5-dev \
-		libldap2-dev \
-		libmagickcore-dev \
-		libmagickwand-dev \
-		libmemcached-dev \
-		libmhash-dev \
-		libpng-dev \
-		libpq-dev \
-		libwebp-dev \
-		libssh2-1-dev \
-		libxpm-dev \
-		libxslt1-dev \
-		libzip-dev \
+	libc-client2007e-dev \
+	libfreetype6-dev \
+	libgpgme11-dev \
+	libicu-dev \
+	libjpeg62-turbo-dev \
+	libkrb5-dev \
+	libldap2-dev \
+	libmagickcore-dev \
+	libmagickwand-dev \
+	libmemcached-dev \
+	libmhash-dev \
+	libpng-dev \
+	libpq-dev \
+	libwebp-dev \
+	libssh2-1-dev \
+	libxpm-dev \
+	libxslt1-dev \
+	libzip-dev \
 	"; \
 	apt-get update >/dev/null; \
 	# Necessary for msodbcsql17 (MSSQL)
 	ACCEPT_EULA=Y \
 	apt-get -y --no-install-recommends install >/dev/null \
-		$buildDeps \
-		blackfire-php \
-		libc-client2007e \
-		libfreetype6 \
-		libgpgme11 \
-		libicu57 \
-		libjpeg62-turbo \
-		libldap-2.4-2 \
-		libmagickcore-6.q16-3 \
-		libmagickwand-6.q16-3 \
-		libmemcached11 \
-		libmemcachedutil2 \
-		libmhash2 \
-		libpng16-16 \
-		libpq5 \
-		libssh2-1 \
-		libxpm4 \
-		libxslt1.1 \
-		libzip4 \
-		msodbcsql17 \
+	$buildDeps \
+	blackfire-php \
+	libc-client2007e \
+	libfreetype6 \
+	libgpgme11 \
+	libicu57 \
+	libjpeg62-turbo \
+	libldap-2.4-2 \
+	libmagickcore-6.q16-3 \
+	libmagickwand-6.q16-3 \
+	libmemcached11 \
+	libmemcachedutil2 \
+	libmhash2 \
+	libpng16-16 \
+	libpq5 \
+	libssh2-1 \
+	libxpm4 \
+	libxslt1.1 \
+	libzip4 \
+	msodbcsql17 \
 	;\
 	# SSH2 must be installed from source for PHP 7.x
 	git clone https://github.com/php/pecl-networking-ssh2.git /usr/src/php/ext/ssh2 && rm -rf /usr/src/php/ext/ssh2/.git; \
 	\
 	docker-php-ext-configure >/dev/null gd \
-		--with-freetype-dir=/usr/include/ \
-		--with-jpeg-dir=/usr/include/ \
-		--with-webp-dir=/usr/include/ \
-		--with-png-dir=/usr/include/ \
-		--with-xpm-dir=/usr/include/; \
+	--with-freetype-dir=/usr/include/ \
+	--with-jpeg-dir=/usr/include/ \
+	--with-webp-dir=/usr/include/ \
+	--with-png-dir=/usr/include/ \
+	--with-xpm-dir=/usr/include/; \
 	docker-php-ext-configure >/dev/null imap --with-kerberos --with-imap-ssl; \
 	docker-php-ext-configure >/dev/null ldap --with-libdir=lib/x86_64-linux-gnu/; \
 	docker-php-ext-configure >/dev/null pgsql --with-pgsql=/usr/local/pgsql/; \
 	docker-php-ext-configure >/dev/null zip --with-libzip; \
 	\
 	docker-php-ext-install >/dev/null -j$(nproc) \
-		bcmath \
-		bz2 \
-		calendar\
-		exif \
-		gd \
-		gettext \
-		imap \
-		intl \
-		ldap \
-		# mcrypt is deprecated in 7.1 and removed in 7.2. See Deprecated features.
-		# mcrypt \
-		mysqli \
-		opcache \
-		pcntl \
-		pdo_mysql \
-		pdo_pgsql \
-		pgsql \
-		soap \
-		sockets \
-		ssh2 \
-		xsl \
-		zip \
+	bcmath \
+	bz2 \
+	calendar\
+	exif \
+	gd \
+	gettext \
+	imap \
+	intl \
+	ldap \
+	# mcrypt is deprecated in 7.1 and removed in 7.2. See Deprecated features.
+	# mcrypt \
+	mysqli \
+	opcache \
+	pcntl \
+	pdo_mysql \
+	pdo_pgsql \
+	pgsql \
+	soap \
+	sockets \
+	ssh2 \
+	xsl \
+	zip \
 	;\
 	pecl update-channels; \
 	pecl install >/dev/null </dev/null \
-		apcu \
-		gnupg \
-		imagick \
-		# Use memcached (not memcache) for PHP 7.x
-		memcached \
-		#pdo_sqlsrv - currently not supported in PHP 7.3
-		redis \
-		#sqlsrv - currently not supported in PHP 7.3
-		# There is currently no stable pecl release of xdebug for PHP 7.3
-		xdebug-2.7.0beta1 \
+	apcu \
+	gnupg \
+	imagick \
+	# Use memcached (not memcache) for PHP 7.x
+	memcached \
+	#pdo_sqlsrv - currently not supported in PHP 7.3
+	redis \
+	#sqlsrv - currently not supported in PHP 7.3
+	# There is currently no stable pecl release of xdebug for PHP 7.3
+	xdebug-2.7.0beta1 \
 	;\
 	docker-php-ext-enable \
-		apcu \
-		gnupg \
-		imagick \
-		memcached \
-		#pdo_sqlsrv - currently not supported in PHP 7.3
-		redis \
-		#sqlsrv - currently not supported in PHP 7.3
+	apcu \
+	gnupg \
+	imagick \
+	memcached \
+	#pdo_sqlsrv - currently not supported in PHP 7.3
+	redis \
+	#sqlsrv - currently not supported in PHP 7.3
 	;\
 	# Cleanup
 	docker-php-source delete; \
@@ -231,7 +231,7 @@ ENV COMPOSER_VERSION=1.8.0 \
 	DRUSH_VERSION=8.1.18 \
 	DRUSH_LAUNCHER_VERSION=0.6.0 \
 	DRUPAL_CONSOLE_LAUNCHER_VERSION=1.8.0 \
-	WPCLI_VERSION=2.0.1 \
+	WPCLI_VERSION=2.1.0 \
 	BLACKFIRE_VERSION=1.22.0 \
 	PLATFORMSH_CLI_VERSION=3.38.1
 RUN set -xe; \
@@ -325,9 +325,9 @@ RUN set -e; \
 	echo 'rvm_silence_path_mismatch_check_flag=1' >> $HOME/.rvmrc; \
 	curl -fsSL https://raw.githubusercontent.com/rvm/rvm/${RVM_VERSION_INSTALL}/binscripts/rvm-installer | bash -s -- --ignore-dotfiles --version ${RVM_VERSION_INSTALL}; \
 	{ \
-		echo ''; \
-		echo 'export PATH="$PATH:$HOME/.rvm/bin"'; \
-		echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"'; \
+	echo ''; \
+	echo 'export PATH="$PATH:$HOME/.rvm/bin"'; \
+	echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"'; \
 	} >> $HOME/.profile; \
 	# Reload $HOME/.profile to apply settings for the current shell
 	. $HOME/.profile; \
@@ -353,10 +353,10 @@ RUN set -xe; \
 	git clone --depth 1 -b v${PYENV_VERSION_INSTALL} https://github.com/pyenv/pyenv.git $HOME/.pyenv; \
 	rm -rf $HOME/.pyenv/.git; \
 	{ \
-		echo ''; \
-		echo 'export PYENV_ROOT="$HOME/.pyenv"'; \
-		echo 'export PATH="$PYENV_ROOT/bin:$PATH"'; \
-		echo 'eval "$(pyenv init -)"'; \
+	echo ''; \
+	echo 'export PYENV_ROOT="$HOME/.pyenv"'; \
+	echo 'export PATH="$PYENV_ROOT/bin:$PATH"'; \
+	echo 'eval "$(pyenv init -)"'; \
 	} >> $HOME/.profile
 # Disabled for now - uses too much space (~200MB).
 # The upsteam Debian 9 image ships with Python 2.7 out of the box, so we'll stick with that by default.
